@@ -20,21 +20,20 @@ void getProcesses(struct ProcessInfo processes[], int *numProcesses) {
 
     dir = opendir("/proc");
     if (dir == NULL) {
-        perror("Error opening /proc directory");
+        perror("Erro /proc diretorio");
         exit(EXIT_FAILURE);
     }
 
     *numProcesses = 0;
 
     while ((entry = readdir(dir)) != NULL && *numProcesses < MAX_PROCESSES) {
-        // Check if the entry is a directory and represents a process ID
         if (entry->d_type == DT_DIR && atoi(entry->d_name) != 0) {
             char procPath[270];
             sprintf(procPath, "/proc/%s/stat", entry->d_name);
 
             FILE *file = fopen(procPath, "r");
             if (file == NULL) {
-                perror("Error opening process stat file");
+                perror("Erro abrindo processo /stat pasta");
                 exit(EXIT_FAILURE);
             }
 
